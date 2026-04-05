@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-width=1.0">
+    <title>Brasileiragem - Revista Digital</title>
+    
+    <style>
+        body {
+            background-color: #1a1a1a;
+            margin: 0;
+            min-width: 100vw;
+            min-height: 100vh; /* Permite que a página cresça ao dar zoom */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: auto; /* A MÁGICA AQUI: Libera a barra de rolagem! */
+            font-family: sans-serif;
+        }
+
+        /* Container de proteção */
+        .magazine-wrapper {
+            width: 90vw;
+            display: block; 
+            padding: 40px 0; /* Dá um pequeno "respiro" no topo e embaixo quando o usuário rolar a tela */
+        }
+
+        /* O Flipbook centralizado */
+        .flipbook {
+            display: none;
+            margin: 0 auto; 
+        }
+
+        .page {
+            background-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        /* Imagem preenchendo perfeitamente */
+        .page img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill; 
+            pointer-events: none;
+            image-rendering: high-quality;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="magazine-wrapper">
+        <div id="magazine" class="flipbook">
+            
+            <div class="page"><img src="img/01.png" alt="Página 01"></div>
+            <div class="page"><img src="img/02.png" alt="Página 02"></div>
+            <div class="page"><img src="img/03.png" alt="Página 03"></div>
+            <div class="page"><img src="img/04.png" alt="Página 04"></div>
+            <div class="page"><img src="img/05.png" alt="Página 05"></div>
+            <div class="page"><img src="img/06.png" alt="Página 06"></div>
+            <div class="page"><img src="img/07.png" alt="Página 07"></div>
+            <div class="page"><img src="img/08.png" alt="Página 08"></div>
+            <div class="page"><img src="img/09.png" alt="Página 09"></div>
+            <div class="page"><img src="img/10.png" alt="Página 10"></div>
+            <div class="page"><img src="img/11.png" alt="Página 11"></div>
+            <div class="page"><img src="img/12.png" alt="Página 12"></div>
+
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const magazine = document.getElementById('magazine');
+            magazine.style.display = 'block';
+
+            const pageFlip = new St.PageFlip(magazine, {
+                width: 812,       
+                height: 936,      
+                size: "stretch",  
+                minWidth: 300,
+                
+                // Limites calculados matematicamente (Proporção Exata da Arte: 1.152)
+                maxWidth: 750,       
+                minHeight: 345,
+                maxHeight: 864,      
+                
+                maxShadowOpacity: 0.5, 
+                showCover: true,     
+                mobileScrollSupport: false,
+                autoCenter: true,    
+                flippingTime: 500    
+            });
+
+            pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+        });
+    </script>
+</body>
+</html>
