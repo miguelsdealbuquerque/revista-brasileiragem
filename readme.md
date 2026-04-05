@@ -15,7 +15,7 @@ Para garantir que a revista pudesse ser lida em qualquer dispositivo sem perda d
 ## 🎨 Créditos do Projeto
 
 * **Arte Visual, Ilustração e Design Editorial:** 
-Dayranny Amorim, Eduardo Boiago, Gabriela Ruas,Grazielly Marangon, Letícia Furtado e Nathaly Santos
+Dayranny Amorim, Eduardo Boiago, Gabriela Ruas, Grazielly Marangon, Letícia Furtado e Nathaly Santos
 * **Desenvolvimento Web e Deploy:** Desenvolvido como projeto prático por Miguel ALbuquerque estudante de Sistemas de Informação da Universidade Federal de Mato Grosso do Sul (UFMS).
 
 ## 🌐 Como visualizar
