@@ -23,16 +23,21 @@
 
         .magazine-wrapper {
             width: 100vw;
-            height: 100svh; /* Ocupa 100% da tela para a biblioteca ter espaço de sobra */
-            display: block; /* Tiramos o Flexbox que estava brigando com o JS */
-            margin: 0;
-            padding: 0;
+            height: 100vh; /* No PC usamos vh normal */
+            
+            /* O SALVADOR DA PÁTRIA: Mantém o limite da tela respeitando o padding */
+            box-sizing: border-box; 
+            padding: 40px 60px; /* Devolve a margem de segurança no PC para não cortar nada! */
+            
+            display: flex;
+            align-items: center; 
+            justify-content: flex-start; 
+            
             touch-action: pan-y pinch-zoom; 
         }
 
         .flipbook {
             display: none;
-            /* A própria biblioteca vai centralizar sozinha agora */
         }
 
         .page {
@@ -46,6 +51,14 @@
             height: 100%;
             object-fit: fill; 
             pointer-events: none;
+        }
+
+        /* CELULAR: Mantém gigante e sem cortar */
+        @media (max-width: 768px) {
+            .magazine-wrapper {
+                height: 100svh; /* Ignora a barra do navegador mobile */
+                padding: 15px 5px; /* Respiro minúsculo para não roubar espaço de leitura */
+            }
         }
     </style>
 </head>
@@ -78,7 +91,7 @@
             const magazine = document.getElementById('magazine');
             magazine.style.display = 'block';
 
-            // O GUARDA-COSTAS DO ZOOM
+            // GUARDA-COSTAS DO ZOOM
             magazine.addEventListener('touchstart', function(e) {
                 if (e.touches.length > 1) { 
                     e.stopPropagation(); 
@@ -103,9 +116,7 @@
                 showCover: true,     
                 usePortrait: true,   
                 mobileScrollSupport: false, 
-                
-                autoCenter: true,  // VOLTAMOS PARA TRUE (A biblioteca precisa disso para não encolher a tela)
-                
+                autoCenter: true,  
                 flippingTime: 450    
             });
 
