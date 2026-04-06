@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-width=1.0">
     <title>Brasileiragem - Revista Digital</title>
     
+    <meta name="description" content="Revista Brasileiragem - Uma publicação independente sobre cultura, história e identidade brasileira. Arte visual e design editorial.">
+    <meta name="keywords" content="Revista Brasileiragem, revista digital, cultura brasileira, arte visual, design editorial, Expocom, flipbook">
+    <meta name="author" content="Bibia">
+    <meta property="og:title" content="Brasileiragem - Revista Digital">
+    <meta property="og:description" content="Leia a Revista Brasileiragem online. Uma exploração visual e cultural da nossa identidade.">
+    <meta property="og:type" content="website">
+
     <style>
         body {
             background-color: #1a1a1a;
@@ -16,17 +23,17 @@
             justify-content: center;
             overflow: auto; 
             font-family: sans-serif;
-            touch-action: pan-y; /* Permite rolar para baixo se der zoom, mas bloqueia voltar página do navegador */
+            touch-action: pan-y pinch-zoom; /* Garante que o body aceite o zoom */
         }
 
         .magazine-wrapper {
             width: 90vw;
-            height: 90svh; /* svh é perfeito para celular, ignora a barra do navegador */
+            height: 90svh; 
             display: flex; 
             align-items: center;
             justify-content: center;
             padding: 20px 0; 
-            touch-action: none; /* MATA O GLITCH: Impede o navegador de brigar com o toque da revista */
+            touch-action: pan-y pinch-zoom; /* Permite zoom em pinça e rolagem, bloqueia swipe nativo */
         }
 
         .flipbook {
@@ -88,18 +95,18 @@
                 width: 812,       
                 height: 936,      
                 size: "stretch",  
-                
-                // O SEGREDO DO MODO RETRATO ESTÁ AQUI:
-                minWidth: 315,       // Aumentamos para forçar a tela do celular a mostrar 1 página só
+                minWidth: 315,       
                 minHeight: 363,      
                 maxWidth: 1000,       
                 maxHeight: 1150,      
-                
-                maxShadowOpacity: 0.3, // Reduzimos a sombra para deixar o celular mais rápido
+                maxShadowOpacity: 0.3, 
                 showCover: true,     
-                usePortrait: true,   // Força a página única
-                mobileScrollSupport: false, // Desativado para a nossa regra de CSS cuidar dos glitches
-                autoCenter: true,    
+                usePortrait: true,   
+                mobileScrollSupport: false, 
+                
+                // MÁGICA AQUI: autoCenter só ativado em monitores/telas grandes
+                autoCenter: window.innerWidth > 768, 
+                
                 flippingTime: 450    
             });
 
