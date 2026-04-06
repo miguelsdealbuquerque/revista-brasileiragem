@@ -16,15 +16,17 @@
             justify-content: center;
             overflow: auto; 
             font-family: sans-serif;
+            touch-action: pan-y; /* Permite rolar para baixo se der zoom, mas bloqueia voltar página do navegador */
         }
 
         .magazine-wrapper {
             width: 90vw;
-            height: 90vh; /* Altura controlada para centralizar bem */
-            display: flex; /* Mudamos para flex para ajudar o autoCenter no mobile */
+            height: 90svh; /* svh é perfeito para celular, ignora a barra do navegador */
+            display: flex; 
             align-items: center;
             justify-content: center;
             padding: 20px 0; 
+            touch-action: none; /* MATA O GLITCH: Impede o navegador de brigar com o toque da revista */
         }
 
         .flipbook {
@@ -45,11 +47,10 @@
             pointer-events: none;
         }
 
-        /* OTIMIZAÇÃO PARA CELULARES */
         @media (max-width: 768px) {
             .magazine-wrapper {
-                width: 95vw; /* Usa quase toda a largura da tela no celular */
-                height: 85vh; /* Dá um respiro para a barra de endereços do navegador mobile */
+                width: 95vw; 
+                height: 85svh; 
             }
         }
     </style>
@@ -88,21 +89,18 @@
                 height: 936,      
                 size: "stretch",  
                 
-                // LIMITES REDUZIDOS PARA CABER NO CELULAR
-                minWidth: 150,       
-                minHeight: 173,      
-                maxWidth: 750,       
-                maxHeight: 864,      
+                // O SEGREDO DO MODO RETRATO ESTÁ AQUI:
+                minWidth: 315,       // Aumentamos para forçar a tela do celular a mostrar 1 página só
+                minHeight: 363,      
+                maxWidth: 1000,       
+                maxHeight: 1150,      
                 
-                maxShadowOpacity: 0.5, 
+                maxShadowOpacity: 0.3, // Reduzimos a sombra para deixar o celular mais rápido
                 showCover: true,     
-                
-                // MODO MOBILE ATIVADO
-                usePortrait: true,         // Faz a revista exibir 1 página só com a tela em pé
-                mobileScrollSupport: true, // Libera o "arrastar" da tela no touch
-                
+                usePortrait: true,   // Força a página única
+                mobileScrollSupport: false, // Desativado para a nossa regra de CSS cuidar dos glitches
                 autoCenter: true,    
-                flippingTime: 500    
+                flippingTime: 450    
             });
 
             pageFlip.loadFromHTML(document.querySelectorAll('.page'));
