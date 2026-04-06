@@ -23,7 +23,7 @@
             justify-content: center;
             overflow: auto; 
             font-family: sans-serif;
-            touch-action: pan-y pinch-zoom; /* Garante que o body aceite o zoom */
+            touch-action: pan-y pinch-zoom; 
         }
 
         .magazine-wrapper {
@@ -33,7 +33,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px 0; 
-            touch-action: pan-y pinch-zoom; /* Permite zoom em pinça e rolagem, bloqueia swipe nativo */
+            touch-action: pan-y pinch-zoom; 
         }
 
         .flipbook {
@@ -91,6 +91,21 @@
             const magazine = document.getElementById('magazine');
             magazine.style.display = 'block';
 
+            // --- O GUARDA-COSTAS DO ZOOM (NOVA ADIÇÃO) ---
+            // Intercepta os toques ANTES de chegarem na biblioteca
+            magazine.addEventListener('touchstart', function(e) {
+                if (e.touches.length > 1) { // Se tiver mais de 1 dedo (pinça)
+                    e.stopPropagation(); // Bloqueia a biblioteca de tentar virar a página
+                }
+            }, { capture: true }); // O 'capture: true' garante que esse código rode primeiro
+
+            magazine.addEventListener('touchmove', function(e) {
+                if (e.touches.length > 1) {
+                    e.stopPropagation(); 
+                }
+            }, { capture: true });
+            // ----------------------------------------------
+
             const pageFlip = new St.PageFlip(magazine, {
                 width: 812,       
                 height: 936,      
@@ -103,10 +118,7 @@
                 showCover: true,     
                 usePortrait: true,   
                 mobileScrollSupport: false, 
-                
-                // MÁGICA AQUI: autoCenter só ativado em monitores/telas grandes
                 autoCenter: window.innerWidth > 768, 
-                
                 flippingTime: 450    
             });
 
