@@ -21,7 +21,7 @@ Dayranny Amorim, Eduardo Boiago, Gabriela Ruas, Grazielly Marangon, Letícia Fur
 ## 🌐 Como visualizar
 
 O projeto está hospedado e pode ser acessado diretamente através do link:
-[👉 revistabrasileiragem.com.br](https://revistabrasileiragem.com.br) *(ou insira aqui o link temporário do GitHub Pages)*
+[👉 revistabrasileiragem.com.br](https://revistabrasileiragem.com.br)
 
 ---
 *Projeto acadêmico e cultural - 2026*
