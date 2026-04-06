@@ -16,29 +16,23 @@
         body {
             background-color: #1a1a1a;
             margin: 0;
-            min-width: 100vw;
-            min-height: 100vh; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
             overflow: auto; 
             font-family: sans-serif;
             touch-action: pan-y pinch-zoom; 
         }
 
         .magazine-wrapper {
-            width: 90vw;
-            height: 90svh; 
-            display: flex; 
-            align-items: center;
-            justify-content: center;
-            padding: 20px 0; 
+            width: 100vw;
+            height: 100svh; /* Ocupa 100% da tela para a biblioteca ter espaço de sobra */
+            display: block; /* Tiramos o Flexbox que estava brigando com o JS */
+            margin: 0;
+            padding: 0;
             touch-action: pan-y pinch-zoom; 
         }
 
         .flipbook {
             display: none;
-            margin: 0 auto; 
+            /* A própria biblioteca vai centralizar sozinha agora */
         }
 
         .page {
@@ -52,13 +46,6 @@
             height: 100%;
             object-fit: fill; 
             pointer-events: none;
-        }
-
-        @media (max-width: 768px) {
-            .magazine-wrapper {
-                width: 95vw; 
-                height: 85svh; 
-            }
         }
     </style>
 </head>
@@ -91,20 +78,18 @@
             const magazine = document.getElementById('magazine');
             magazine.style.display = 'block';
 
-            // --- O GUARDA-COSTAS DO ZOOM (NOVA ADIÇÃO) ---
-            // Intercepta os toques ANTES de chegarem na biblioteca
+            // O GUARDA-COSTAS DO ZOOM
             magazine.addEventListener('touchstart', function(e) {
-                if (e.touches.length > 1) { // Se tiver mais de 1 dedo (pinça)
-                    e.stopPropagation(); // Bloqueia a biblioteca de tentar virar a página
+                if (e.touches.length > 1) { 
+                    e.stopPropagation(); 
                 }
-            }, { capture: true }); // O 'capture: true' garante que esse código rode primeiro
+            }, { capture: true });
 
             magazine.addEventListener('touchmove', function(e) {
                 if (e.touches.length > 1) {
                     e.stopPropagation(); 
                 }
             }, { capture: true });
-            // ----------------------------------------------
 
             const pageFlip = new St.PageFlip(magazine, {
                 width: 812,       
@@ -118,7 +103,9 @@
                 showCover: true,     
                 usePortrait: true,   
                 mobileScrollSupport: false, 
-                autoCenter: window.innerWidth > 768, 
+                
+                autoCenter: true,  // VOLTAMOS PARA TRUE (A biblioteca precisa disso para não encolher a tela)
+                
                 flippingTime: 450    
             });
 
