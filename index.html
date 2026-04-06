@@ -5,39 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-width=1.0">
     <title>Brasileiragem - Revista Digital</title>
     
-    <meta name="description" content="Revista Brasileiragem - Uma publicação independente sobre cultura, história e identidade brasileira. Arte visual e design editorial.">
-    <meta name="keywords" content="Revista Brasileiragem, revista digital, cultura brasileira, arte visual, design editorial, Expocom, flipbook">
-    <meta name="author" content="Bibia">
-    <meta property="og:title" content="Brasileiragem - Revista Digital">
-    <meta property="og:description" content="Leia a Revista Brasileiragem online. Uma exploração visual e cultural da nossa identidade.">
-    <meta property="og:type" content="website">
-
     <style>
         body {
             background-color: #1a1a1a;
             margin: 0;
-            overflow: auto; 
+            overflow: auto; /* IMPORTANTE: Garante que a barra de rolagem apareça se houver zoom */
             font-family: sans-serif;
-            touch-action: pan-y pinch-zoom; 
         }
 
+        /* Container de proteção */
         .magazine-wrapper {
             width: 100vw;
-            height: 100vh; /* No PC usamos vh normal */
-            
-            /* O SALVADOR DA PÁTRIA: Mantém o limite da tela respeitando o padding */
-            box-sizing: border-box; 
-            padding: 40px 60px; /* Devolve a margem de segurança no PC para não cortar nada! */
+            /* IMPORTANTE: min-height em vez de height. Isso permite que a página 
+               inteira cresça para baixo quando você dá zoom no PC, 
+               então nada mais será comido! */
+            min-height: 100vh; 
             
             display: flex;
-            align-items: center; 
-            justify-content: flex-start; 
+            /* IMPORTANTE: Desativamos o alinhamento vertical no CSS (alin-items:center), 
+               deixando a revista colar no topo. Isso libera a rolagem para baixo! */
+            justify-content: center; /* Centraliza horizontalmente pelo CSS */
             
-            touch-action: pan-y pinch-zoom; 
+            padding: 40px 0; /* Dá um respiro pro PC em 100% de zoom */
+            box-sizing: border-box;
         }
 
+        /* O Flipbook centralizado pelo JS */
         .flipbook {
             display: none;
+            /* O autoCenter do JS vai cuidar da horizontal em telas grandes */
         }
 
         .page {
@@ -46,6 +42,7 @@
             overflow: hidden;
         }
 
+        /* Imagem preenchendo perfeitamente */
         .page img {
             width: 100%;
             height: 100%;
@@ -53,11 +50,12 @@
             pointer-events: none;
         }
 
-        /* CELULAR: Mantém gigante e sem cortar */
+        /* AJUSTES ESPECÍFICOS PARA CELULAR */
         @media (max-width: 768px) {
             .magazine-wrapper {
-                height: 100svh; /* Ignora a barra do navegador mobile */
-                padding: 15px 5px; /* Respiro minúsculo para não roubar espaço de leitura */
+                min-height: 100svh; /* svh ignora barra de endereços do celular */
+                padding: 10px; /* Respiro mínimo para o celular */
+                align-items: center; /* No celular, mantemos centralizado na vertical pq não tem zoom */
             }
         }
     </style>
@@ -91,33 +89,28 @@
             const magazine = document.getElementById('magazine');
             magazine.style.display = 'block';
 
-            // GUARDA-COSTAS DO ZOOM
-            magazine.addEventListener('touchstart', function(e) {
-                if (e.touches.length > 1) { 
-                    e.stopPropagation(); 
-                }
-            }, { capture: true });
-
-            magazine.addEventListener('touchmove', function(e) {
-                if (e.touches.length > 1) {
-                    e.stopPropagation(); 
-                }
-            }, { capture: true });
+            // Detecta se é celular (largura < 768px)
+            const isMobile = window.innerWidth < 768;
 
             const pageFlip = new St.PageFlip(magazine, {
                 width: 812,       
                 height: 936,      
                 size: "stretch",  
-                minWidth: 315,       
-                minHeight: 363,      
-                maxWidth: 1000,       
-                maxHeight: 1150,      
-                maxShadowOpacity: 0.3, 
+                minWidth: 300,
+                
+                // Limites calculados matematicamente (Proporção Exata da Arte: 1.152)
+                maxWidth: 750,       
+                minHeight: 345,
+                maxHeight: 864,      
+                
+                maxShadowOpacity: 0.5, 
                 showCover: true,     
-                usePortrait: true,   
-                mobileScrollSupport: false, 
-                autoCenter: true,  
-                flippingTime: 450    
+                mobileScrollSupport: false,
+                
+                // MÁGICA AQUI: autoCenter só é true no PC. No celular, desativa pra parar o pulo!
+                autoCenter: !isMobile, 
+                
+                flippingTime: 500    
             });
 
             pageFlip.loadFromHTML(document.querySelectorAll('.page'));
