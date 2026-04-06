@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-width=1.0">
     <title>Brasileiragem - Revista Digital</title>
+
+    <link rel="icon" type="image/png" href="img/favicon.png">
     
     <style>
         body {
@@ -17,13 +19,11 @@
         .magazine-wrapper {
             width: 100vw;
             /* IMPORTANTE: min-height em vez de height. Isso permite que a página 
-               inteira cresça para baixo quando você dá zoom no PC, 
-               então nada mais será comido! */
+               inteira cresça para baixo quando você dá zoom no PC. */
             min-height: 100vh; 
             
             display: flex;
-            /* IMPORTANTE: Desativamos o alinhamento vertical no CSS (alin-items:center), 
-               deixando a revista colar no topo. Isso libera a rolagem para baixo! */
+
             justify-content: center; /* Centraliza horizontalmente pelo CSS */
             
             padding: 40px 0; /* Dá um respiro pro PC em 100% de zoom */
@@ -65,18 +65,18 @@
     <div class="magazine-wrapper">
         <div id="magazine" class="flipbook">
             
-            <div class="page"><img src="img/01.png" alt="Página 01"></div>
-            <div class="page"><img src="img/02.png" alt="Página 02"></div>
-            <div class="page"><img src="img/03.png" alt="Página 03"></div>
-            <div class="page"><img src="img/04.png" alt="Página 04"></div>
-            <div class="page"><img src="img/05.png" alt="Página 05"></div>
-            <div class="page"><img src="img/06.png" alt="Página 06"></div>
-            <div class="page"><img src="img/07.png" alt="Página 07"></div>
-            <div class="page"><img src="img/08.png" alt="Página 08"></div>
-            <div class="page"><img src="img/09.png" alt="Página 09"></div>
-            <div class="page"><img src="img/10.png" alt="Página 10"></div>
-            <div class="page"><img src="img/11.png" alt="Página 11"></div>
-            <div class="page"><img src="img/12.png" alt="Página 12"></div>
+            <div class="page"><img src="img/01.webp" alt="Página 01"></div>
+            <div class="page"><img src="img/02.webp" alt="Página 02"></div>
+            <div class="page"><img src="img/03.webp" alt="Página 03"></div>
+            <div class="page"><img src="img/04.webp" alt="Página 04"></div>
+            <div class="page"><img src="img/05.webp" alt="Página 05"></div>
+            <div class="page"><img src="img/06.webp" alt="Página 06"></div>
+            <div class="page"><img src="img/07.webp" alt="Página 07"></div>
+            <div class="page"><img src="img/08.webp" alt="Página 08"></div>
+            <div class="page"><img src="img/09.webp" alt="Página 09"></div>
+            <div class="page"><img src="img/10.webp" alt="Página 10"></div>
+            <div class="page"><img src="img/11.webp" alt="Página 11"></div>
+            <div class="page"><img src="img/12.webp" alt="Página 12"></div>
 
         </div>
     </div>
@@ -107,7 +107,7 @@
                 showCover: true,     
                 mobileScrollSupport: false,
                 
-                // MÁGICA AQUI: autoCenter só é true no PC. No celular, desativa pra parar o pulo!
+                // AutoCenter só é true no PC. No celular, desativa pra parar o pulo!
                 autoCenter: !isMobile, 
                 
                 flippingTime: 500    
