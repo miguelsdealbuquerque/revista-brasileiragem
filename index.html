@@ -10,22 +10,23 @@
             background-color: #1a1a1a;
             margin: 0;
             min-width: 100vw;
-            min-height: 100vh; /* Permite que a página cresça ao dar zoom */
+            min-height: 100vh; 
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: auto; /* A MÁGICA AQUI: Libera a barra de rolagem! */
+            overflow: auto; 
             font-family: sans-serif;
         }
 
-        /* Container de proteção */
         .magazine-wrapper {
             width: 90vw;
-            display: block; 
-            padding: 40px 0; /* Dá um pequeno "respiro" no topo e embaixo quando o usuário rolar a tela */
+            height: 90vh; /* Altura controlada para centralizar bem */
+            display: flex; /* Mudamos para flex para ajudar o autoCenter no mobile */
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0; 
         }
 
-        /* O Flipbook centralizado */
         .flipbook {
             display: none;
             margin: 0 auto; 
@@ -37,13 +38,19 @@
             overflow: hidden;
         }
 
-        /* Imagem preenchendo perfeitamente */
         .page img {
             width: 100%;
             height: 100%;
             object-fit: fill; 
             pointer-events: none;
-            image-rendering: high-quality;
+        }
+
+        /* OTIMIZAÇÃO PARA CELULARES */
+        @media (max-width: 768px) {
+            .magazine-wrapper {
+                width: 95vw; /* Usa quase toda a largura da tela no celular */
+                height: 85vh; /* Dá um respiro para a barra de endereços do navegador mobile */
+            }
         }
     </style>
 </head>
@@ -80,16 +87,20 @@
                 width: 812,       
                 height: 936,      
                 size: "stretch",  
-                minWidth: 300,
                 
-                // Limites calculados matematicamente (Proporção Exata da Arte: 1.152)
+                // LIMITES REDUZIDOS PARA CABER NO CELULAR
+                minWidth: 150,       
+                minHeight: 173,      
                 maxWidth: 750,       
-                minHeight: 345,
                 maxHeight: 864,      
                 
                 maxShadowOpacity: 0.5, 
                 showCover: true,     
-                mobileScrollSupport: false,
+                
+                // MODO MOBILE ATIVADO
+                usePortrait: true,         // Faz a revista exibir 1 página só com a tela em pé
+                mobileScrollSupport: true, // Libera o "arrastar" da tela no touch
+                
                 autoCenter: true,    
                 flippingTime: 500    
             });
